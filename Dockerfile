@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.1-apache
 LABEL maintainer="Andy Miller <rhuk@getgrav.org> (@rhukster)"
 
 # Enable Apache Rewrite + Expires Module
@@ -45,9 +45,6 @@ RUN { \
     echo 'opcache.jit_buffer_size=100M'; \
     echo 'opcache.jit=1235'; \
     } > /usr/local/etc/php/conf.d/php-recommended.ini
-
-RUN  pecl install yaml-2.0.4 \
-    && docker-php-ext-enable yaml
 
 # Set user to www-data
 RUN chown www-data:www-data /var/www
