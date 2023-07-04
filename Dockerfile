@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.0-apache
 LABEL maintainer="Andy Miller <rhuk@getgrav.org> (@rhukster)"
 
 # Enable Apache Rewrite + Expires Module
