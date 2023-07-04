@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     git \
     cron \
-    vim \
+    nano \
     && docker-php-ext-install opcache \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
