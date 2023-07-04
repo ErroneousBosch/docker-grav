@@ -62,6 +62,7 @@ RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GR
 
 # Create cron job for Grav maintenance scripts
 # modified on model from https://stackoverflow.com/questions/67493776/the-docker-container-does-not-run-the-crontab
+RUN mkdir /usr/local/grav
 RUN echo "* * * * * cd /var/www/html;/usr/local/bin/php bin/grav scheduler 1>> /dev/null 2>&1" > /usr/local/grav/grav.cron
 RUN chmod 0644 /usr/local/grav/grav.cron
 
