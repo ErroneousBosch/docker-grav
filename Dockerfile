@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.1-apache
 LABEL maintainer="Andy Miller <rhuk@getgrav.org> (@rhukster)"
 
 # Enable Apache Rewrite + Expires Module
@@ -29,8 +29,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-install zip \
     && rm -rf /var/lib/apt/lists/*
 
-# set recommended PHP.ini settings
-# see https://secure.php.net/manual/en/opcache.installation.php
+## Set recommended PHP.ini settings
+## See https://secure.php.net/manual/en/opcache.installation.php
+## Copied from https://github.com/getgrav/docker-grav/issues/49
 RUN { \
     echo 'opcache.memory_consumption=128'; \
     echo 'opcache.interned_strings_buffer=8'; \
@@ -41,11 +42,12 @@ RUN { \
     echo 'upload_max_filesize=128M'; \
     echo 'post_max_size=128M'; \
     echo 'expose_php=off'; \
+    echo 'opcache.jit_buffer_size=100M'; \
+    echo 'opcache.jit=1235'; \
     } > /usr/local/etc/php/conf.d/php-recommended.ini
 
-RUN pecl install apcu \
-    && pecl install yaml-2.0.4 \
-    && docker-php-ext-enable apcu yaml
+RUN  pecl install yaml-2.0.4 \
+    && docker-php-ext-enable yaml
 
 # Set user to www-data
 RUN chown www-data:www-data /var/www
